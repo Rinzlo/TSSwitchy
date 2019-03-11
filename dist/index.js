@@ -12,10 +12,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const MoviesRouter_1 = __importDefault(require("./routers/MoviesRouter"));
+const DevicesRouter_1 = __importDefault(require("./routers/DevicesRouter"));
 const path = __importStar(require("path"));
 const mongoose_1 = require("mongoose");
 const dotenv = __importStar(require("dotenv"));
 const express_session_1 = __importDefault(require("express-session"));
+const passport_1 = __importDefault(require("passport"));
 dotenv.config();
 // Connect to database
 const mongoUrl = 'mongodb://127.0.0.1:27017/moviesapp';
@@ -39,10 +41,13 @@ app.use(express_session_1.default({
     resave: false,
     saveUninitialized: false
 }));
+app.use(passport_1.default.initialize());
+app.use(passport_1.default.session());
 // Parses JSON in body
 app.use(express_1.default.json());
 // Handles /movies routes
 app.use('/movies', MoviesRouter_1.default);
+app.use('/devices', DevicesRouter_1.default);
 // Configures the http://localhost:5000/ route to send a text response
 app.get('/', (req, res) => {
     res.send('Hello, world!');

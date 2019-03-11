@@ -1,5 +1,6 @@
 import express from 'express';
 import moviesRouter from './routers/MoviesRouter';
+import devicesRouter from './routers/DevicesRouter';
 import * as path from 'path';
 import { connect } from 'mongoose';
 import * as dotenv from 'dotenv';
@@ -34,13 +35,17 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false
-}))
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Parses JSON in body
 app.use(express.json());
 
 // Handles /movies routes
 app.use('/movies', moviesRouter);
+
+app.use('/devices', devicesRouter);
 
 // Configures the http://localhost:5000/ route to send a text response
 app.get('/', (req, res) => {

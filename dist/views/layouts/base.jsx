@@ -16,7 +16,7 @@ class BaseLayout extends React.Component {
                 </head>
                 <body>
                     <header>
-                        <h1>{this.props.title} - Movie App</h1>
+                        <h1>{this.props.title} - Device App</h1>
                     </header>
                     <main>{this.props.children}</main>
                 </body>
